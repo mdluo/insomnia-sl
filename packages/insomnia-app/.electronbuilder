@@ -1,5 +1,5 @@
 {
-  "appId": "com.insomnia.app",
+  "appId": "com.insomnia.app.sl",
   "publish": false,
   "extraResources": [
     {
@@ -10,10 +10,10 @@
   ],
   "protocols": [
     {
-      "name": "Insomnia",
+      "name": "Insomnia SL",
       "role": "Viewer",
       "schemes": [
-        "insomnia"
+        "insomnia-sl"
       ]
     }
   ],
@@ -37,7 +37,7 @@
     ]
   },
   "linux": {
-    "executableName": "insomnia",
+    "executableName": "insomnia-sl",
     "synopsis": "A simple, beautiful, and free REST API client",
     "category": "Development",
     "target": [

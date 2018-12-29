@@ -3,10 +3,10 @@
   "version": "1.1.0",
   "name": "insomnia-app",
   "app": {
-    "name": "insomnia",
-    "productName": "Insomnia",
-    "longName": "Insomnia REST Client",
-    "version": "6.3.2",
+    "name": "insomnia-sl",
+    "productName": "Insomnia SL",
+    "longName": "Insomnia REST Client - Save and Load",
+    "version": "6.3.2-sl",
     "main": "main.min.js"
   },
   "licence": "MIT",
