@@ -11,6 +11,22 @@ export type Hotkey = {
   metaIsCtrl?: boolean,
 };
 
+export const LOAD_WORKSPACE: Hotkey = {
+  description: 'Load Workspace from File',
+  meta: true,
+  alt: false,
+  shift: false,
+  keycode: keycodes.l,
+};
+
+export const SAVE_WORKSPACE: Hotkey = {
+  description: 'Save Workspace to File',
+  meta: true,
+  alt: false,
+  shift: false,
+  keycode: keycodes.s,
+};
+
 export const SHOW_WORKSPACE_SETTINGS: Hotkey = {
   description: 'Show Workspace Settings',
   meta: true,

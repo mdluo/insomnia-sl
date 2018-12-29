@@ -1,7 +1,11 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { shell } from 'electron';
 import PropTypes from 'prop-types';
 import autobind from 'autobind-decorator';
 import * as classnames from 'classnames';
+import * as globalActions from '../../redux/modules/global';
 import Dropdown from '../base/dropdown/dropdown';
 import DropdownDivider from '../base/dropdown/dropdown-divider';
 import DropdownButton from '../base/dropdown/dropdown-button';
@@ -59,6 +63,23 @@ class WorkspaceDropdown extends PureComponent {
 
   _handleShowSettings() {
     showModal(SettingsModal);
+  }
+
+  _handleWorkspacePath() {
+    const { activeWorkspace } = this.props;
+    shell.showItemInFolder(activeWorkspace.description);
+  }
+
+  _handleWorkspaceLoad() {
+    const { handleImportUriToWorkspace, activeWorkspace } = this.props;
+    if (activeWorkspace.description) {
+      handleImportUriToWorkspace(activeWorkspace._id, `file://${activeWorkspace.description}`);
+    }
+  }
+
+  _handleWorkspaceSave() {
+    const { handleExportWorkspaceToFile, activeWorkspace } = this.props;
+    handleExportWorkspaceToFile(activeWorkspace._id);
   }
 
   _handleShowWorkspaceSettings() {
@@ -142,14 +163,19 @@ class WorkspaceDropdown extends PureComponent {
               {activeWorkspace.name}
             </h1>
           </DropdownButton>
-          <DropdownDivider>{activeWorkspace.name}</DropdownDivider>
+          <DropdownDivider>Current Workspace</DropdownDivider>
+          <DropdownItem onClick={this._handleWorkspacePath}>
+            <i className="fa fa-file" /> {activeWorkspace.description || 'Unsaved Workspace'}
+          </DropdownItem>
+          <DropdownItem onClick={this._handleWorkspaceLoad}>
+            <i className="fa fa-folder-open" /> Load workspace
+          </DropdownItem>
+          <DropdownItem onClick={this._handleWorkspaceSave}>
+            <i className="fa fa-save" /> Save Workspace
+          </DropdownItem>
           <DropdownItem onClick={this._handleShowWorkspaceSettings}>
             <i className="fa fa-wrench" /> Workspace Settings
             <DropdownHint hotkey={hotkeys.SHOW_WORKSPACE_SETTINGS} />
-          </DropdownItem>
-
-          <DropdownItem onClick={this._handleShowShareSettings}>
-            <i className="fa fa-globe" /> Share <strong>{activeWorkspace.name}</strong>
           </DropdownItem>
 
           <DropdownDivider>Switch Workspace</DropdownDivider>
@@ -169,7 +195,7 @@ class WorkspaceDropdown extends PureComponent {
           })}
 
           <DropdownItem onClick={this._handleWorkspaceCreate}>
-            <i className="fa fa-empty" /> New Workspace
+            <i className="fa fa-plus" /> New Workspace
           </DropdownItem>
 
           <DropdownDivider>Insomnia Version {getAppVersion()}</DropdownDivider>
@@ -220,4 +246,16 @@ WorkspaceDropdown.propTypes = {
   className: PropTypes.string,
 };
 
-export default WorkspaceDropdown;
+function mapDispatchToProps(dispatch) {
+  const global = bindActionCreators(globalActions, dispatch);
+
+  return {
+    handleImportUriToWorkspace: global.importUri,
+    handleExportWorkspaceToFile: global.saveToFile,
+  };
+}
+
+export default connect(
+  () => ({}),
+  mapDispatchToProps,
+)(WorkspaceDropdown);
