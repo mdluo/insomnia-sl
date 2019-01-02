@@ -47,7 +47,7 @@ deploy:
   description: ''
   provider: GitHub
   auth_token:
-    secure: '%GITHUB_TOKEN%'
+    secure: 'MElRjSzkH+DudN+k6jPiOwk9l3FwnKHCMiHxxsI3zfKgNFZrrL6xv3tpfAIINQ3H'
   artifact: dist
   prerelease: true
   on:
