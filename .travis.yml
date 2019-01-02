@@ -35,8 +35,6 @@ matrix:
     - docker-compose run $COMPOSE_SCRIPT
   - os: osx
     env:
-    - CSC_LINK=$MAC_CSC_LINK
-    - CSC_KEY_PASSWORD=$MAC_CSC_KEY_PASSWORD
     before_deploy:
     - npm run app-package
 
