@@ -10,8 +10,6 @@ shallow_clone: true
 platform: x64
 environment:
   NODEJS_VERSION: "10"
-  CSC_LINK: '%WINDOWS_CSC_LINK%'
-  CSC_KEY_PASSWORD: '%WINDOWS_CSC_KEY_PASSWORD%'
 
 # Things to install after repo clone
 install:
@@ -49,7 +47,7 @@ deploy:
   description: ''
   provider: GitHub
   auth_token:
-    secure: Ffmgxn+wt5WSf/jgJ/L+/3mkUs4fn9Z5j4Dz73VATsgL14Rf/xUp2nOyE0ecow+1
+    secure: '%GITHUB_TOKEN%'
   artifact: dist
   prerelease: true
   on:
